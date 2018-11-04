@@ -51,12 +51,4 @@ public interface GoodsService extends BaseService<TbGoods> {
      * @return sku商品列表
      */
     List<TbItem> findItemListByGoodsIdsAndStatus(Long[] ids, String itemStatus);
-
-    /**
-     * 根据商品spu id查询商品信息（基本、描述、sku列表(已启用；并且按照是否默认排序降序排序)）
-     * @param goodsId 商品spu id
-     * @param itemStatus 商品sku的状态
-     * @return 商品信息（基本、描述、sku列表(已启用)）
-     */
-    Goods findGoodsByIdAndStatus(Long goodsId, String itemStatus);
 }

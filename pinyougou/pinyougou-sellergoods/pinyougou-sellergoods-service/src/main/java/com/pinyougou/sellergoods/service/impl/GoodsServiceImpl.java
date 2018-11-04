@@ -171,31 +171,6 @@ public class GoodsServiceImpl extends BaseServiceImpl<TbGoods> implements GoodsS
         return itemMapper.selectByExample(example);
     }
 
-    @Override
-    public Goods findGoodsByIdAndStatus(Long goodsId, String itemStatus) {
-        Goods goods = new Goods();
-
-        //1、根据商品spu id 查询商品基本信息
-        goods.setGoods(findOne(goodsId));
-
-        //2、根据商品spu id 查询商品描述信息
-        goods.setGoodsDesc(goodsDescMapper.selectByPrimaryKey(goodsId));
-
-        //3、根据商品spu id 查询商品sku 列表
-        Example example = new Example(TbItem.class);
-        example.createCriteria().andEqualTo("status", itemStatus)
-                .andEqualTo("goodsId", goodsId);
-        //根据是否默认降序排序
-        example.orderBy("isDefault").desc();
-
-
-        List<TbItem> itemList = itemMapper.selectByExample(example);
-
-        goods.setItemList(itemList);
-
-        return goods;
-    }
-
     /**
      * 保存商品sku列表
      * @param goods 商品信息（基本、描述、sku列表）
