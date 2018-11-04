@@ -39,5 +39,5 @@
     <!--  引用 dubbo  服务  -->
     <dubbo:application name="pinyougou-item-web"/>
     <dubbo:registry address="zookeeper://192.168.12.168:2181"/>
-    <dubbo:annotation package="com.pinyougou"/>
+    <dubbo:annotation package="com.pinyougou.item.controller"/>
 </beans>

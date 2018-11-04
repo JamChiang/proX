@@ -31,14 +31,4 @@
         <constructor-arg value="pinyougou_item_solr_delete_queue"/>
     </bean>
 
-    <!--商品审核过后的spu id消息的主题 -->
-    <bean id="itemTopic" class="org.apache.activemq.command.ActiveMQTopic">
-        <constructor-arg value="pinyougou_item_topic"/>
-    </bean>
-
-    <!--商品删除过后的spu id消息的主题 -->
-    <bean id="itemDeleteTopic" class="org.apache.activemq.command.ActiveMQTopic">
-        <constructor-arg value="pinyougou_item_delete_topic"/>
-    </bean>
-
 </beans>
