@@ -7,10 +7,13 @@ import com.pinyougou.user.service.UserService;
 import com.pinyougou.vo.PageResult;
 import com.pinyougou.vo.Result;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("/user")
 @RestController
@@ -20,6 +23,20 @@ public class UserController {
     private UserService userService;
 
     /**
+     * 获取当前登录用户信息
+     * @return 用户信息
+     */
+    @GetMapping("/getUsername")
+    public Map<String, Object> getUsername(){
+        Map<String, Object> resultMap = new HashMap<>();
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        resultMap.put("username", username);
+
+        return resultMap;
+    }
+
+  /**
      * 发送手机短信验证码
      * @param phone 手机号
      * @return 操作结果
