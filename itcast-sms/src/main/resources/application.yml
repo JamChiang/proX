@@ -1,0 +1,13 @@
+#从阿里申请的短信发送的key
+accessKeyId: LTAINs6bfRqh2vAL
+#从阿里申请的短信发送的key的秘钥
+accessKeySecret: BaZMlF9Sr2xdUYtCKaQhhuYKxvlAha
+
+#修改tomcat端口号
+server:
+  port: 9003
+
+#配置activeMQ的broker服务器信息
+spring:
+  activemq:
+    broker-url: tcp://192.168.12.168:61616
