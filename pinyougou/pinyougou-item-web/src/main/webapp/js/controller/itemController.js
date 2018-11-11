@@ -63,6 +63,7 @@ app.controller("itemController", function ($scope, $http) {
     };
 
     $scope.addToCart = function () {
+        //withCredentials允许携带cookie
         $http.get("http://cart.pinyougou.com/cart/addItemToCartList.do?itemId="
             + $scope.sku.id + "&num=" + $scope.num,{"withCredentials":true})
             .success(function (response) {
