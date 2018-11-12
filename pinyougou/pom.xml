@@ -26,6 +26,7 @@
         <module>pinyougou-cart</module>
         <module>pinyougou-cart-web</module>
         <module>pinyougou-order</module>
+        <module>pinyougou-pay</module>
     </modules>
     <!-- 集中定义依赖版本号 -->
     <properties>

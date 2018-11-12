@@ -7,6 +7,7 @@ import com.pinyougou.common.util.IdWorker;
 import com.pinyougou.mapper.OrderItemMapper;
 import com.pinyougou.mapper.OrderMapper;
 import com.pinyougou.mapper.PayLogMapper;
+import com.pinyougou.pojo.TbItem;
 import com.pinyougou.pojo.TbOrder;
 import com.pinyougou.order.service.OrderService;
 import com.pinyougou.pojo.TbOrderItem;
@@ -20,6 +21,7 @@ import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -153,5 +155,37 @@ public class OrderServiceImpl extends BaseServiceImpl<TbOrder> implements OrderS
 
         //5、如果是微信支付则返回支付日志id，如果是货到付款则返回空字符串
         return outTradeNo;
+    }
+
+    @Override
+    public TbPayLog findPayLogByOutTradeNo(String outTradeNo) {
+        return payLogMapper.selectByPrimaryKey(outTradeNo);
+    }
+
+    @Override
+    public void updateOrderStatus(String outTradeNo, String transaction_id) {
+        //1、获取支付日志
+        TbPayLog payLog = findPayLogByOutTradeNo(outTradeNo);
+
+        //2、更新支付日志对应的支付状态为1，已支付
+        payLog.setTradeState("1");
+        payLog.setPayTime(new Date());
+        payLog.setTransactionId(transaction_id);
+        payLogMapper.updateByPrimaryKeySelective(payLog);
+
+        //3、更新该支付日志对应的所有订单的支付状态为已支付；2
+        //获取订单数组
+        String[] orderIds = payLog.getOrderList().split(",");
+
+        TbOrder order = new TbOrder();
+        //已付款
+        order.setStatus("2");
+        order.setPaymentTime(new Date());
+
+        Example example = new Example(TbOrder.class);
+        example.createCriteria().andIn("orderId", Arrays.asList(orderIds));
+
+        orderMapper.updateByExampleSelective(order, example);
+
     }
 }
