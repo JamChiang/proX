@@ -10,14 +10,17 @@ import com.pinyougou.service.impl.BaseServiceImpl;
 import com.pinyougou.vo.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 @Service(interfaceClass = ContentService.class)
+@Transactional
 public class ContentServiceImpl extends BaseServiceImpl<TbContent> implements ContentService {
 
     @Autowired
